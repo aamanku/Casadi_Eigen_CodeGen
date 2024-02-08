@@ -3,7 +3,7 @@ project(casadi_eigen_codegen)
 
 set(CMAKE_CXX_STANDARD 17)
 #optimization flags for release
-set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native -DNDEBUG ")
 
 #optimization flags for debug
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")

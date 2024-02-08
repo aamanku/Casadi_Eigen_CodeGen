@@ -34,9 +34,9 @@ extern "C" int f_work(casadi_int *sz_arg, casadi_int* sz_res, casadi_int *sz_iw,
 #define f_SZ_RES 3
 #define f_SZ_IW 0
 #define f_SZ_W 3
-extern "C" void f_eigen (Eigen::Matrix<double,3,2> &i0,
-				Eigen::Matrix<double,1,1> &i1,
-				Eigen::Matrix<double,3,69> &i2,
-				Eigen::Matrix<double,1,1> &o0, 
-				Eigen::Matrix<double,3,2> &o1, 
-				Eigen::Matrix<double,3,69> &o2);
+void f_eigen (Eigen::Matrix<casadi_real,3,2> &i0,
+				Eigen::Matrix<casadi_real,1,1> &i1,
+				Eigen::Matrix<casadi_real,3,5> &i2,
+				Eigen::Matrix<casadi_real,1,1> &o0, 
+				Eigen::Matrix<casadi_real,3,2> &o1, 
+				Eigen::Matrix<casadi_real,3,5> &o2);

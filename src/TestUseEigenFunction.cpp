@@ -7,15 +7,19 @@
 #include "myfunction.h"
 #include <chrono>
 
-#define USE_RANDOM_INPUTS
+//#define USE_RANDOM_INPUTS
 
 int main(){
-    Eigen::Matrix<double,3,2> i0;
-    Eigen::Matrix<double,1,1> i1;
-    Eigen::Matrix<double,3,69> i2;
-    Eigen::Matrix<double,1,1> o0;
-    Eigen::Matrix<double,3,2> o1;
-    Eigen::Matrix<double,3,69> o2;
+    Eigen::Matrix<casadi_real,3,2> i0;
+    Eigen::Matrix<casadi_real,1,1> i1;
+    Eigen::Matrix<casadi_real,3,5> i2;
+    Eigen::Matrix<casadi_real,1,1> o0;
+    Eigen::Matrix<casadi_real,3,2> o1;
+    Eigen::Matrix<casadi_real,3,5> o2;
+    o0.setRandom();
+    o1.setRandom();
+    o2.setRandom();
+
 
 #ifndef USE_RANDOM_INPUTS
     i0.setRandom();
@@ -24,22 +28,7 @@ int main(){
 #endif
 
 
-    int num_iter = 100000;
-    { // Test f_eigen
-        auto start = std::chrono::high_resolution_clock::now();
-        for(int i=0; i<num_iter; i++) {
-#ifdef USE_RANDOM_INPUTS
-            i0.setRandom();
-            i1.setRandom();
-            i2.setRandom();
-#endif
-
-            f_eigen(i0, i1, i2, o0, o1, o2);
-        }
-        auto end = std::chrono::high_resolution_clock::now();
-        // print average time in nanoseconds
-        std::cout << "f_eigen: " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()/num_iter << " ns" << std::endl;
-    }
+    int num_iter = 10000;
 
     { // Test f casadi
         auto start = std::chrono::high_resolution_clock::now();
@@ -66,6 +55,25 @@ int main(){
         std::cout << "f casadi: " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()/num_iter << " ns" << std::endl;
 
     }
+
+
+    { // Test f_eigen
+        auto start = std::chrono::high_resolution_clock::now();
+        for(int i=0; i<num_iter; i++) {
+#ifdef USE_RANDOM_INPUTS
+            i0.setRandom();
+            i1.setRandom();
+            i2.setRandom();
+#endif
+
+            f_eigen(i0, i1, i2, o0, o1, o2);
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        // print average time in nanoseconds
+        std::cout << "f_eigen: " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()/num_iter << " ns" << std::endl;
+    }
+
+
 
 
     return 0;

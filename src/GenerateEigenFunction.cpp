@@ -6,16 +6,16 @@ int main(){
     // Variables
     SX x = SX::sym("x", 3, 2);
     SX y = SX::sym("y");
-    SX z = SX::sym("z", 3, 69);
+    SX z = SX::sym("z", 3, 5);
 
     // Simple function
-    Function f("f", {x, y, z}, {sqrt(y)-1, sin(x)-y, z});
+    Function f("f", {x, y, z}, {sqrt(y)-1, sin(x)-y, sin(z)});
 
     // Generate C-code
     Dict opts;
     opts["with_header"] = true;
     opts["cpp"] = true;
-    CasadiFunctionEigenCodeGen cg("myfunction",SOURCE_DIR"/codegenEigen",opts);
+    CasadiEigenCodeGen::FixedSizeCG cg("myfunction", SOURCE_DIR"/codegenEigen", opts);
 
     cg.add_casadi_function(f);
 
